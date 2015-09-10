@@ -30,15 +30,13 @@ class User {
     }
     static function usernameExists($username) {
         $db = new DB();
-        $res = $db->query("SELECT count(username) AS usercount "
-            . "FROM user "
-            . "WHERE username='$username'")->fetchAll(PDO::FETCH_ASSOC);
+        $res = $db->query("SELECT count(username) AS usercount FROM user WHERE username='$username'")->fetch(PDO::FETCH_ASSOC);
 
-        if ($res[0]['usercount'] > 0) {
-            return true;
+        if ($res['usercount'] > 0) {
+            return 'TRUE';
         }
 
-        return false;
+        return 'FALSE';
     }
     static function getID($username) {
         $db = new DB();
@@ -50,7 +48,6 @@ class User {
         $usernameAvailable = User::usernameExists($username);
         $clubnameAvailable = Club::clubnameExists($club);
         $password = hash('md5', $passwordRaw);
- //           $usernameAvailable = TRUE;
         if ($usernameAvailable == FALSE ) {
             $res = $db->queryIns("INSERT INTO user(username,password,type) VALUES('$username','$password','$type')");
 
@@ -66,7 +63,7 @@ class User {
             }
             if($type = "manager"){
                 $res = $db->queryIns("INSERT INTO manager (manager_id,name,age) VALUES ($user_id,'$name',$agein)"); // this is ok.
-               // $result = $db->query("INSERT INTO club (manager_id,name) VALUES ($user_id,'$club')");
+                $result = $db->query("INSERT INTO club (manager_id,name) VALUES ($user_id,'$club')");
                 var_dump($name);
             }
 
@@ -79,7 +76,7 @@ class User {
         $db = new DB();
 
         $passWordhash = hash('md5', $password);
-        $sql = "SELECT user_id,type FROM user WHERE username ='$username' AND password='$passWordhash'";
+        $sql = "SELECT user.user_id,user.type,club.name FROM user JOIN club WHERE username ='$username' AND password='$passWordhash' AND club.manager_id = user.user_id";
         $result = $db->query($sql);
         //var_dump($result);
         $res = $result->fetch(PDO::FETCH_ASSOC);
@@ -87,4 +84,4 @@ class User {
     }
     
    
-}
+ }

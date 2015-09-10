@@ -2,7 +2,8 @@
 
 require_once './utilities/Player.class.php';
 
-$playername = $_GET['username']; // what's the point of this username
+$player_id = $_GET['player_id'];
 
-$result = Player::getPlayerAll($playername);
+// get all the player details according to the username
+$result = Player::getPlayerAll($player_id);
 echo json_encode($result);

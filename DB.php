@@ -3,8 +3,8 @@
 
 class DB {
 
-    private $dsn = 'mysql:host=127.0.0.1;dbname=cricket'; //mysql.hostinger.in
-    private $username = 'root'; // u553716585_jawad
+    private $dsn = 'mysql:host=127.0.0.1;dbname=cricket'; //mysql.hostinger.in mysql.hostinger.co.uk u791639115_crick
+    private $username = 'root'; // u553716585_jawad u791639115_crick
     private $password = ''; // realanalysis
     // u553716585_crick
     private $options = array(
