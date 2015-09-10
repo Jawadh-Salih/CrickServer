@@ -23,7 +23,7 @@ Class Player{
         return $result->fetchAll(PDO::FETCH_ASSOC);
 
     }
-    static  function updateScore($player_id,$runs,$six,$four){//,$srate,$ball){
+    static  function updateScore($verses,$player_id,$runs,$six,$four){//,$srate,$ball){
         $db = new DB();
         $score = $db->query("SELECT total_score FROM player WHERE player_id = $player_id")->fetch(PDO::FETCH_ASSOC);
         $sixes = $db->query("SELECT sixes FROM player WHERE player_id = $player_id")->fetch(PDO::FETCH_ASSOC);
@@ -50,6 +50,12 @@ Class Player{
 
         $sql = "UPDATE player SET total_score = $scoreIn,sixes = $sixesIn,fours = $foursIn WHERE player_id=$player_id";
         $res =  $db->query($sql);
+        $sql2 = "SELECT match_id FROM game WHERE verses = '$verses' AND match_date= CURDATE()";
+        $m_id = $db->query($sql2)->fetch(PDO::FETCH_ASSOC);
+        $mat_id = $m_id['match_id'];
+        $match_id = (int) $mat_id; 
+        $sql1 = "INSERT INTO playerplay (player_id,match_id,player_score) VALUES ($player_id,$match_id,$runs)";
+        $res1 = $db->query($sql1);
         var_dump($res);
     }
 }

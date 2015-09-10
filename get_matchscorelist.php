@@ -2,8 +2,12 @@
 
 require_once './utilities/Match.class.php';
 
-$verses= filter_input(INPUT_POST,'verses');
-$club = filter_input(INPUT_POST,'club');
+// $verses= filter_input(INPUT_POST,'verses');
+// $club = filter_input(INPUT_POST,'club');
+
+$verses = $_GET['verses'];
+$club = $_GET['club'];
+
 
 $result =  Match::getMatchScoreList($verses,$club);
 

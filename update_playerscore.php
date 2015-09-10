@@ -2,6 +2,7 @@
 
 require_once './utilities/Player.class.php';
 
+$verses = filter_input(INPUT_POST, 'verses');
 $player_id = filter_input(INPUT_POST,'player_id'); 
 $runs = filter_input(INPUT_POST,'runs');
 $sixes = filter_input(INPUT_POST,'sixes');
@@ -15,4 +16,4 @@ $fours = filter_input(INPUT_POST,'fours');
 // $fours = $_GET['fours'];
 // $srate = $_GET['srate'];
 
-echo Player::updateScore($player_id,$runs,$sixes,$fours);//,$srate,$ball);
+echo Player::updateScore($verses,$player_id,$runs,$sixes,$fours);//,$srate,$ball);
